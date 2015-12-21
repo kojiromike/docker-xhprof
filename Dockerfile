@@ -32,6 +32,11 @@ COPY conf/config.php /var/www/html/xhgui/config/config.php
 
 COPY conf/xhgui.conf /etc/apache2/sites-available/xhgui.conf
 
+COPY conf/php.ini /usr/local/etc/php/conf.d/php.ini
+
 RUN a2ensite xhgui.conf && a2enmod rewrite
+
+RUN mkdir /profiles
+VOLUME /profiles
 
 EXPOSE 80
