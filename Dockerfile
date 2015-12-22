@@ -28,7 +28,7 @@ RUN cd /var/www \
 
 RUN chown -R www-data:www-data /var/www/xhprof/xhprof_html/
 
-COPY conf/php.ini /usr/local/etc/php/conf.d/php.ini
+COPY conf/timezone.ini /usr/local/etc/php/conf.d/timezone.ini
 COPY conf/xhprof.ini /usr/local/etc/php/conf.d/php.ini
 
 COPY conf/xhprof.conf /etc/apache2/sites-available/xhprof.conf
