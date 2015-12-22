@@ -3,6 +3,7 @@ MAINTAINER Scott van Brug scottvanbrug@gmail.com
 
 RUN apt-get update -q && apt-get install -yq \
   git \
+  graphviz \
   libssl-dev \
   libmcrypt-dev \
   && until rm -rf /var/lib/apt/lists; do sleep 1; done
