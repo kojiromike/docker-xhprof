@@ -18,25 +18,23 @@ RUN cd ~ \
   && make install \
   && docker-php-ext-enable mongo.so
 
+RUN pecl install xhprof-beta
+
 RUN docker-php-ext-install mcrypt
+RUN docker-php-ext-enable xhprof
 
-RUN cd /var/www/html \
-  && git clone https://github.com/perftools/xhgui.git \
-  && cd xhgui \
-  && chmod -R 0777 cache \
-  && php install.php
+RUN cd /var/www \
+  && git clone https://github.com/phacility/xhprof.git
 
-RUN chown -R www-data:www-data /var/www/html/xhgui/webroot/
-
-COPY conf/config.php /var/www/html/xhgui/config/config.php
-
-COPY conf/xhgui.conf /etc/apache2/sites-available/xhgui.conf
+RUN chown -R www-data:www-data /var/www/xhprof/xhprof_html/
 
 COPY conf/php.ini /usr/local/etc/php/conf.d/php.ini
+COPY conf/xhprof.ini /usr/local/etc/php/conf.d/php.ini
 
-RUN a2ensite xhgui.conf && a2enmod rewrite
+COPY conf/xhprof.conf /etc/apache2/sites-available/xhprof.conf
+RUN a2ensite xhprof.conf && a2enmod rewrite
 
-RUN mkdir /profiles
-VOLUME /profiles
+RUN mkdir /srv/profiles
+VOLUME /srv/profiles
 
 EXPOSE 80
