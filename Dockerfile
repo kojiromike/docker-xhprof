@@ -8,20 +8,8 @@ RUN apt-get update -q && apt-get install -yq \
   libmcrypt-dev \
   && until rm -rf /var/lib/apt/lists; do sleep 1; done
 
-RUN cd ~ \
-  && pecl download mongo-1.6.12 \
-  && tar -zxf mongo-1.6.12.tgz \
-  && rm mongo-1.6.12.tgz \
-  && cd mongo-1.6.12 \
-  && phpize \
-  && ./configure --with-php-config=/usr/local/bin/php-config --with-mongo-sasl=no \
-  && make all \
-  && make install \
-  && docker-php-ext-enable mongo.so
-
 RUN pecl install xhprof-beta
 
-RUN docker-php-ext-install mcrypt
 RUN docker-php-ext-enable xhprof
 
 RUN cd /var/www \
